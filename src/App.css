@@ -1,0 +1,4 @@
+/* Specific app wide styles if any can go here, but most are in index.css or component specific inline/modules. */
+.app-container {
+  width: 100%;
+}
