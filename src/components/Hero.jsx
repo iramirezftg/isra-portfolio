@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Mail, ChevronDown } from 'lucide-react';
-import { FaGithub, FaLinkedin, FaTwitter } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaTiktok } from 'react-icons/fa';
 import './Hero.css';
 
 const Typewriter = ({ text, delay = 100 }) => {
@@ -39,8 +39,8 @@ export default function Hero() {
         <a href="https://linkedin.com/in/isra_developer" target="_blank" rel="noreferrer" className="social-link" aria-label="LinkedIn">
           <FaLinkedin size={22} />
         </a>
-        <a href="https://twitter.com/isra_developer" target="_blank" rel="noreferrer" className="social-link" aria-label="Twitter">
-          <FaTwitter size={22} />
+        <a href="https://tiktok.com/@isra_developer" target="_blank" rel="noreferrer" className="social-link" aria-label="TikTok">
+          <FaTiktok size={22} />
         </a>
         <div className="sidebar-line"></div>
       </div>

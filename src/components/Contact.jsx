@@ -5,18 +5,32 @@ import './Contact.css';
 export default function Contact() {
   const [formStatus, setFormStatus] = useState('idle'); // idle, submitting, success
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setFormStatus('submitting');
     
-    // Simulate network request
-    setTimeout(() => {
-      setFormStatus('success');
-      e.target.reset();
+    try {
+      const formData = new FormData(e.target);
+      const res = await fetch('https://formsubmit.co/ajax/israplenitud@gmail.com', {
+        method: 'POST',
+        body: formData,
+        headers: {
+            'Accept': 'application/json'
+        }
+      });
       
-      // Reset success message after 5 seconds
-      setTimeout(() => setFormStatus('idle'), 5000);
-    }, 1500);
+      if (res.ok) {
+        setFormStatus('success');
+        e.target.reset();
+        setTimeout(() => setFormStatus('idle'), 5000);
+      } else {
+        throw new Error('Error al enviar el formulario');
+      }
+    } catch (error) {
+      console.error(error);
+      setFormStatus('idle');
+      alert('Hubo un problema al enviar el mensaje. Por favor intenta más tarde.');
+    }
   };
 
   return (
@@ -49,10 +63,10 @@ export default function Contact() {
                 </div>
               </a>
 
-              <a href="https://twitter.com/isra_developer" target="_blank" rel="noreferrer" className="contact-method-card glass-panel">
+              <a href="https://tiktok.com/@isra_developer" target="_blank" rel="noreferrer" className="contact-method-card glass-panel">
                 <div className="method-icon"><MessageSquare size={24} /></div>
                 <div className="method-details">
-                  <span className="method-label">Redes Sociales</span>
+                  <span className="method-label">TikTok</span>
                   <span className="method-value">@isra_developer</span>
                 </div>
               </a>
@@ -70,17 +84,17 @@ export default function Contact() {
               <form onSubmit={handleSubmit} className="contact-form">
                 <div className="form-group">
                   <label htmlFor="name">Nombre</label>
-                  <input type="text" id="name" required placeholder="Tu nombre" disabled={formStatus === 'submitting'} />
+                  <input type="text" id="name" name="name" required placeholder="Tu nombre" disabled={formStatus === 'submitting'} />
                 </div>
                 
                 <div className="form-group">
                   <label htmlFor="email">Email</label>
-                  <input type="email" id="email" required placeholder="tu@email.com" disabled={formStatus === 'submitting'} />
+                  <input type="email" id="email" name="email" required placeholder="tu@email.com" disabled={formStatus === 'submitting'} />
                 </div>
                 
                 <div className="form-group">
                   <label htmlFor="message">Mensaje</label>
-                  <textarea id="message" required rows="5" placeholder="¿En qué puedo ayudarte?" disabled={formStatus === 'submitting'}></textarea>
+                  <textarea id="message" name="message" required rows="5" placeholder="¿En qué puedo ayudarte?" disabled={formStatus === 'submitting'}></textarea>
                 </div>
                 
                 <button type="submit" className="btn btn-primary submit-btn" disabled={formStatus === 'submitting'}>
